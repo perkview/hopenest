@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ===== HERO / PAGE BANNER ===== -->
+<section class="position-relative d-flex align-items-center text-center text-dark"
+  style="height: 60vh; background: url('https://source.unsplash.com/1600x600/?smiling,community,help') center/cover no-repeat;">
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(255,255,255,0.55);"></div>
+
+  <div class="container position-relative">
+    <h1 class="display-4 fw-bold text-primary">Hear From Those We Serve & Our Donors 💬</h1>
+    <p class="lead mb-4 text-muted">Your voice helps us grow and improve our impact.</p>
+  </div>
+</section>
+
+<!-- ===== SUCCESS MESSAGE ===== -->
+{% if messages %}
+<div class="text-center mb-4">
+  {% for message in messages %}
+  <div class="alert alert-success alert-dismissible fade show rounded-4" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ===== FEEDBACK SUBMISSION FORM ===== -->
+<section class="py-5 bg-light" id="feedbackForm">
+  <div class="container">
+    <h2 class="fw-bold text-primary text-center mb-5">Submit Your Feedback</h2>
+    <form class="mx-auto" style="max-width: 700px;" method="post" action="{% url 'feedback' %}">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Name (optional)</label>
+        <input type="text" class="form-control rounded-pill" name="name" placeholder="Your Name">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Email (optional)</label>
+        <input type="email" class="form-control rounded-pill" name="email" placeholder="your@email.com">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Type of Feedback</label>
+        <select class="form-select rounded-pill" name="feedback_type">
+          <option value="beneficiary">Beneficiary</option>
+          <option value="donor">Donor</option>
+          <option value="general">General</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Feedback</label>
+        <textarea class="form-control rounded-4" rows="5" name="feedback_text"
+          placeholder="Share your experience..."></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Rating</label>
+        <select class="form-select rounded-pill" name="rating">
+          {% for i in "12345" %}
+            <option value="{{ i }}">{{ i }} {% for j in "12345"|slice:":i"|make_list %}⭐{% endfor %}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow px-5">Submit Feedback</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ===== RECENT FEEDBACK / TESTIMONIALS ===== -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="fw-bold text-primary text-center mb-5">Recent Feedback</h2>
+    <div class="row g-4 justify-content-center">
+
+      {% for feedback in feedbacks %}
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-2">
+              <img src="https://source.unsplash.com/50x50/?person" class="rounded-circle me-2" 
+                alt="{{ feedback.name|default:'User' }}">
+              <div>
+                <strong>{{ feedback.name|default:"Anonymous" }}</strong>
+                <small class="d-block text-muted">{{ feedback.get_feedback_type_display }}</small>
+              </div>
+            </div>
+            <p class="text-muted small mb-2">
+              {% for i in "1"|ljust:feedback.rating %}⭐{% endfor %} 
+              “{{ feedback.feedback_text }}”
+            </p>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center text-muted">No feedback submitted yet.</p>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== HIGHLIGHTED STORIES / IMPACT ===== -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="fw-bold text-primary text-center mb-5">Highlighted Stories</h2>
+    <div class="row g-4 align-items-center">
+
+      <div class="col-md-6">
+        <div class="ratio ratio-16x9 shadow rounded-4">
+          <iframe src="https://www.youtube.com/embed/Scxs7L0vhZ4" title="Beneficiary Story" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row g-3">
+          <div class="col-6">
+            <img src="https://source.unsplash.com/200x200/?community,before" class="img-fluid rounded-4" alt="Before">
+          </div>
+          <div class="col-6">
+            <img src="https://source.unsplash.com/200x200/?community,after" class="img-fluid rounded-4" alt="After">
+          </div>
+          <div class="col-12 mt-2 text-center">
+            <p class="text-muted small">Before & After: Community Support Project</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CALL-TO-ACTION ===== -->
+<section class="py-5 text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4">Share Your Experience or Contribute to Make a Difference!</h2>
+    <a href="#feedbackForm" class="btn btn-primary btn-lg rounded-pill shadow px-5 me-2">Submit Feedback</a>
+    <a href="/donate" class="btn btn-danger btn-lg rounded-pill shadow px-5">Donate Now</a>
+  </div>
+</section>
+
+{% endblock %}

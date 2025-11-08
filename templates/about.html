@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ===== HERO SECTION / TOP BANNER ===== -->
+<section class="position-relative d-flex align-items-center text-center text-dark"
+  style="height: 100vh; background: url('https://source.unsplash.com/1600x700/?volunteer,trees,food') center/cover no-repeat;">
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(255,255,255,0.55);"></div>
+  <div class="container position-relative">
+    <h1 class="display-4 fw-bold text-primary">We Believe Small Contributions Create Big Change 🌱🍲</h1>
+    <p class="lead mb-4 text-muted">Our mission is to serve meals, plant trees, and build sustainable futures together.
+    </p>
+    <a href="{% url 'donate' %}" class="btn btn-primary btn-lg rounded-pill shadow px-5">Donate Now</a>
+  </div>
+</section>
+
+<!-- ===== OUR MISSION & VISION ===== -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-md-6">
+        <h2 class="fw-bold text-primary mb-3">Our Mission</h2>
+        <p class="text-muted">To create meaningful impact by providing meals, planting trees, and empowering communities
+          with sustainable solutions.</p>
+      </div>
+      <div class="col-md-6">
+        <h2 class="fw-bold text-primary mb-3">Our Vision</h2>
+        <p class="text-muted">A future where every small act contributes to a thriving planet and equitable society.
+          🌱🍲💡</p>
+        <div class="d-flex gap-3 mt-3 justify-content-center">
+          <i class="bi bi-tree text-success fs-3"></i>
+          <i class="bi bi-people-fill text-primary fs-3"></i>
+          <i class="bi bi-lightbulb text-warning fs-3"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== IMPACT SNAPSHOT ===== -->
+<section class="py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold text-primary mb-5">Impact Snapshot</h2>
+    <div class="row g-4">
+
+      <div class="col-md-3">
+        <h3 class="fw-bold text-success">{{ impact.meals_served|default:"0" }}</h3>
+        <p class="text-muted">Meals Served</p>
+      </div>
+      <div class="col-md-3">
+        <h3 class="fw-bold text-success">{{ impact.trees_planted|default:"0" }}</h3>
+        <p class="text-muted">Trees Planted</p>
+      </div>
+      <div class="col-md-3">
+        <h3 class="fw-bold text-success">{{ impact.donors_joined|default:"0" }}</h3>
+        <p class="text-muted">Donors Joined</p>
+      </div>
+      <div class="col-md-3">
+        <h3 class="fw-bold text-success">{{ impact.families_helped|default:"0" }}</h3>
+        <p class="text-muted">Families Impacted</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+{% endblock %}

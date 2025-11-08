@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ===== HERO / PAGE BANNER ===== -->
+<section class="position-relative d-flex align-items-center text-center text-white"
+  style="height: 60vh; background: url('https://source.unsplash.com/1600x600/?helping,team,office') center/cover no-repeat;">
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.55);"></div>
+
+  <div class="container position-relative">
+    <h1 class="display-4 fw-bold text-light">Get in Touch with Us 📬</h1>
+    <p class="lead mb-4 text-light">We’re here to answer your questions and hear your suggestions.</p>
+  </div>
+</section>
+
+<!-- Display success message -->
+{% if messages %}
+<div class="text-center mb-4">
+  {% for message in messages %}
+  <div class="alert alert-success alert-dismissible fade show rounded-4" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ===== CONTACT FORM ===== -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="fw-bold text-primary text-center mb-5">Contact Us</h2>
+    <form class="mx-auto" style="max-width: 700px;" method="post" action="/contact/">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Name</label>
+        <input type="text" class="form-control rounded-pill" name="name" placeholder="Your Name" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Email</label>
+        <input type="email" class="form-control rounded-pill" name="email" placeholder="you@example.com" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Phone (Optional)</label>
+        <input type="text" class="form-control rounded-pill" name="phone" placeholder="+1 234 567 890">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Subject</label>
+        <select class="form-select rounded-pill" name="subject">
+          <option value="general">General</option>
+          <option value="donation">Donation</option>
+          <option value="feedback">Feedback</option>
+          <option value="partnership">Partnership</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Message</label>
+        <textarea class="form-control rounded-4" rows="5" name="message" placeholder="Write your message..."
+          required></textarea>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow px-5">Send Message</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ===== CONTACT DETAILS ===== -->
+<section class="py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold text-primary mb-4">Our Contact Details</h2>
+    <div class="row g-4 justify-content-center">
+
+      <div class="col-md-3">
+        <i class="bi bi-envelope-fill fs-2 text-primary mb-2"></i>
+        <p class="mb-0">info@organization.org</p>
+      </div>
+
+      <div class="col-md-3">
+        <i class="bi bi-telephone-fill fs-2 text-primary mb-2"></i>
+        <p class="mb-0">+1 234 567 890</p>
+      </div>
+
+
+      <div class="col-md-3">
+        <i class="bi bi-clock-fill fs-2 text-primary mb-2"></i>
+        <p class="mb-0">Mon-Fri, 9:00 AM - 6:00 PM</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- ===== FAQ / QUICK HELP (Optional) ===== -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="fw-bold text-primary text-center mb-5">Frequently Asked Questions</h2>
+    <div class="accordion mx-auto" id="faqAccordion" style="max-width: 800px;">
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faq1">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1"
+            aria-expanded="false">
+            How can I donate to a project?
+          </button>
+        </h2>
+        <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">You can donate using our online donation form or by contacting us
+            directly for offline contributions.</div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faq2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"
+            aria-expanded="false">
+            How do I submit feedback?
+          </button>
+        </h2>
+        <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">Feedback can be submitted via our feedback page or the contact form
+            below.</div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faq3">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3"
+            aria-expanded="false">
+            Can I partner with your organization?
+          </button>
+        </h2>
+        <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">Yes! Reach out via email or the partnership option in the contact form.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CALL-TO-ACTION ===== -->
+<section class="py-5 text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4">Want to make a difference today? Donate now and support our mission 💙</h2>
+    <a href="/donate" class="btn btn-danger btn-lg rounded-pill shadow px-5">Donate Now</a>
+  </div>
+</section>
+
+{% endblock %}

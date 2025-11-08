@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="py-5 bg-light">
+  <div class="container">
+    <h1 class="text-primary fw-bold mb-4">Privacy Policy</h1>
+
+    <!-- Section 1: Introduction -->
+    <div class="mb-5">
+      <h2 class="fw-semibold text-primary mb-3">Introduction</h2>
+      <p>We are committed to protecting your privacy. Here’s how we handle your data:</p>
+      <ul class="list-unstyled ps-3">
+        <li class="mb-1">• Transparency in data usage</li>
+        <li class="mb-1">• No selling of personal info</li>
+        <li class="mb-1">• Secure donation handling</li>
+      </ul>
+    </div>
+
+    <!-- Section 2: Information We Collect -->
+    <div class="mb-5">
+      <h2 class="fw-semibold text-primary mb-3">Information We Collect</h2>
+      <ul class="list-unstyled ps-3">
+        <li class="mb-2"><strong>Personal info:</strong> Name, Email, Phone, Address</li>
+        <li class="mb-2"><strong>Donation info:</strong> Amount, Project selected</li>
+        <li class="mb-2"><strong>Cookies & analytics:</strong> Tracking for improving site experience</li>
+      </ul>
+    </div>
+
+    <!-- Section 3: How We Use Your Information -->
+    <div class="mb-5">
+      <h2 class="fw-semibold text-primary mb-3">How We Use Your Information</h2>
+      <ul class="list-unstyled ps-3">
+        <li class="mb-2">• Process donations</li>
+        <li class="mb-2">• Communicate updates and impact reports</li>
+        <li class="mb-2">• Improve website experience</li>
+      </ul>
+    </div>
+
+    <!-- Section 4: Sharing & Security -->
+    <div class="mb-5">
+      <h2 class="fw-semibold text-primary mb-3">Sharing & Security</h2>
+      <ul class="list-unstyled ps-3">
+        <li class="mb-2">• Data is not sold to third parties</li>
+        <li class="mb-2">• Payment info handled securely via manual or trusted 3rd-party services</li>
+        <li class="mb-2">• Security measures: SSL, encrypted databases</li>
+      </ul>
+    </div>
+
+    <!-- Section 5: Your Rights -->
+    <div class="mb-5">
+      <h2 class="fw-semibold text-primary mb-3">Your Rights</h2>
+      <ul class="list-unstyled ps-3">
+        <li class="mb-2">• Access & correction of personal data</li>
+        <li class="mb-2">• Request deletion of data</li>
+        <li class="mb-2">• Opt-out of emails or communications</li>
+      </ul>
+    </div>
+
+    <!-- Section 6: Contact -->
+    <div class="mb-5 text-center">
+      <h2 class="fw-semibold text-primary mb-3">Contact Us</h2>
+      <p>If you have questions about our privacy practices, feel free to reach out.</p>
+      <a href="{% url 'contact' %}" class="btn btn-primary rounded-pill px-4 py-2 shadow">Contact Form</a>
+      <p class="mt-3">Or email us directly: <a href="mailto:support@hopenest.org">support@hopenest.org</a></p>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

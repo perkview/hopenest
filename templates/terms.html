@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+
+  <!-- Section 1: Introduction -->
+  <section class="mb-5">
+    <h2 class="fw-bold text-primary mb-3">Introduction</h2>
+    <p>Overview of HopeNest terms:</p>
+    <ul>
+      <li>Scope of agreement</li>
+      <li>Effective date of terms</li>
+      <li>Acceptance by using website / making donations</li>
+    </ul>
+  </section>
+
+  <!-- Section 2: Eligibility -->
+  <section class="mb-5">
+    <h2 class="fw-bold text-primary mb-3">Eligibility</h2>
+    <p>Users must meet the following requirements:</p>
+    <ul>
+      <li>Must be of legal age to donate</li>
+      <li>Authorized to use the website</li>
+      <li>Consent to collect necessary data</li>
+    </ul>
+  </section>
+
+  <!-- Section 3: Donations -->
+  <section class="mb-5">
+    <h2 class="fw-bold text-primary mb-3">Donations</h2>
+    <ul>
+      <li>Donations are voluntary</li>
+      <li>Payment methods and manual verification</li>
+      <li>No refunds unless explicitly stated</li>
+      <li>Currency used: PKR</li>
+    </ul>
+  </section>
+
+  <!-- Section 4: User Responsibilities -->
+  <section class="mb-5">
+    <h2 class="fw-bold text-primary mb-3">User Responsibilities</h2>
+    <ul>
+      <li>Provide accurate personal info</li>
+      <li>Respect intellectual property</li>
+      <li>Do not misuse platform or data</li>
+    </ul>
+  </section>
+
+  <!-- Section 5: Privacy & Security -->
+  <section class="mb-5">
+    <h2 class="fw-bold text-primary mb-3">Privacy & Security</h2>
+    <ul>
+      <li>Personal info handled according to privacy policy</li>
+      <li>Secure storage of donation details</li>
+      <li>Security measures in place</li>
+    </ul>
+  </section>
+
+  <!-- Section 6: Limitation of Liability -->
+  <section class="mb-5">
+    <h2 class="fw-bold text-primary mb-3">Limitation of Liability</h2>
+    <ul>
+      <li>HopeNest not liable for indirect losses</li>
+      <li>Website usage at own risk</li>
+      <li>No guarantees on donation outcomes</li>
+    </ul>
+  </section>
+
+  <!-- Section 7: Amendments -->
+  <section class="mb-5">
+    <h2 class="fw-bold text-primary mb-3">Amendments</h2>
+    <ul>
+      <li>Terms may be updated periodically</li>
+      <li>Users notified via website / email</li>
+      <li>Continued use constitutes acceptance</li>
+    </ul>
+  </section>
+
+  <!-- Section 8: Contact -->
+  <section class="mb-5">
+    <h2 class="fw-bold text-primary mb-3">Contact Us</h2>
+    <p>Questions about terms? <a href="{% url 'contact' %}" class="btn btn-primary rounded-pill px-4">Contact Form</a></p>
+  </section>
+
+</div>
+{% endblock %}

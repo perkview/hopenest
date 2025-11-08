@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ===== HERO / PAGE BANNER ===== -->
+<section class="position-relative d-flex align-items-center text-center text-white"
+  style="height: 60vh; background: url('https://source.unsplash.com/1600x600/?helping,trees,food') center/cover no-repeat;">
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.55);"></div>
+  <div class="container position-relative">
+    <h1 class="display-4 fw-bold text-light">Your Contribution Makes a Real Difference 🌱🍲</h1>
+    <p class="lead mb-4 text-light">Choose a project and see how your donation helps people and communities.</p>
+  </div>
+</section>
+
+<!-- Display success message -->
+{% if messages %}
+<div class="text-center mb-4">
+  {% for message in messages %}
+  <div class="alert alert-success alert-dismissible fade show rounded-4" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<form class="mx-auto p-4 bg-white rounded-4 shadow-sm" style="max-width:800px;" method="post" action="">
+  {% csrf_token %}
+
+  <!-- Project Selection -->
+  <div class="mb-4">
+    <label class="form-label fw-semibold">Select Project / Cause</label>
+    <select class="form-select rounded-pill" name="project" required>
+      <option value="">Choose a project</option>
+      {% for project in projects %}
+      <option value="{{ project.id }}">{{ project.title }}</option>
+      {% empty %}
+      <option disabled>No projects available</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- Donation Amount -->
+  <div class="mb-4">
+    <label class="form-label fw-semibold">Select Donation Amount (PKR)</label>
+    <div class="d-flex flex-wrap gap-2 mb-2">
+      <button type="button" class="btn btn-outline-primary rounded-pill amount-btn">500</button>
+      <button type="button" class="btn btn-outline-primary rounded-pill amount-btn">1000</button>
+      <button type="button" class="btn btn-outline-primary rounded-pill amount-btn">5000</button>
+      <button type="button" class="btn btn-outline-primary rounded-pill amount-btn">10000</button>
+    </div>
+    <input type="number" class="form-control rounded-pill" name="custom_amount" placeholder="Or enter custom amount"
+      min="1">
+  </div>
+
+
+  <!-- Donor Info -->
+  <div class="mb-3">
+    <label class="form-label fw-semibold">Name</label>
+    <input type="text" class="form-control rounded-pill" name="name" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-semibold">Email</label>
+    <input type="email" class="form-control rounded-pill" name="email" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-semibold">Phone (Optional)</label>
+    <input type="text" class="form-control rounded-pill" name="phone">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-semibold">Address (Optional)</label>
+    <textarea class="form-control rounded-4" name="address" rows="2"></textarea>
+  </div>
+
+  <div class="mb-4 form-check">
+    <input class="form-check-input" type="checkbox" name="anonymous" id="anonymous">
+    <label class="form-check-label" for="anonymous">Donate anonymously</label>
+  </div>
+
+  <!-- Payment Method -->
+  <div class="mb-4 text-center">
+    <p class="fw-semibold mb-2">Select Payment Method</p>
+    <select class="form-select rounded-pill w-auto mx-auto" name="payment_method">
+      <option value="bank">Bank Transfer</option>
+      <option value="ewallet">E-Wallet (JazzCash/EasyPaisa)</option>
+    </select>
+  </div>
+
+  <!-- Donation Summary -->
+  <div class="card p-4 mb-4 shadow-sm rounded-4 bg-light">
+    <h5 class="fw-bold mb-3">Donation Summary</h5>
+    <p>Project: <span id="summary-project">—</span></p>
+    <p>Amount (PKR): <span id="summary-amount">—</span></p>
+    <p>Name: <span id="summary-name">—</span></p>
+    <p>Email: <span id="summary-email">—</span></p>
+  </div>
+
+  <div class="text-center">
+    <button type="submit" class="btn btn-danger btn-lg rounded-pill px-5">Confirm & Donate</button>
+  </div>
+</form>
+
+<script>
+  // Amount buttons
+  document.querySelectorAll('.amount-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      document.querySelector('input[name="custom_amount"]').value = this.textContent;
+      document.getElementById('summary-amount').textContent = this.textContent + ' PKR';
+    });
+  });
+
+  // Summary updates
+  const projectSelect = document.querySelector('select[name="project"]');
+  const nameInput = document.querySelector('input[name="name"]');
+  const emailInput = document.querySelector('input[name="email"]');
+
+  projectSelect.addEventListener('change', () => {
+    document.getElementById('summary-project').textContent = projectSelect.options[projectSelect.selectedIndex].text;
+  });
+  nameInput.addEventListener('input', () => {
+    document.getElementById('summary-name').textContent = nameInput.value;
+  });
+  emailInput.addEventListener('input', () => {
+    document.getElementById('summary-email').textContent = emailInput.value;
+  });
+</script>
+
+<!-- ===== IMPACT PREVIEW ===== -->
+<section class="py-5 bg-light">
+  <div class="container text-center">
+    <h2 class="fw-bold text-primary mb-5">Impact Preview</h2>
+    <div class="row g-4 justify-content-center">
+
+      <div class="col-md-3">
+        <i class="bi bi-egg-fried fs-1 text-success mb-2"></i>
+        <h3 class="fw-bold text-success">3,200+</h3>
+        <p class="text-muted">Meals Served</p>
+      </div>
+
+      <div class="col-md-3">
+        <i class="bi bi-tree fs-1 text-success mb-2"></i>
+        <h3 class="fw-bold text-success">150+</h3>
+        <p class="text-muted">Trees Planted</p>
+      </div>
+
+      <div class="col-md-3">
+        <i class="bi bi-people-fill fs-1 text-success mb-2"></i>
+        <h3 class="fw-bold text-success">500+</h3>
+        <p class="text-muted">Families Helped</p>
+      </div>
+
+      <div class="col-md-3">
+        <i class="bi bi-briefcase fs-1 text-success mb-2"></i>
+        <h3 class="fw-bold text-success">25+</h3>
+        <p class="text-muted">Projects Funded</p>
+      </div>
+
+    </div>
+
+    <!-- Recent Donor Highlights -->
+    <div class="mt-5">
+      <h5 class="fw-bold text-primary mb-3">Recent Donor Highlights</h5>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <div class="card p-3 rounded-4 shadow-sm" style="width: 200px;">
+          <p class="mb-1">“Happy to contribute!”</p>
+          <small class="text-muted">David M.</small>
+        </div>
+        <div class="card p-3 rounded-4 shadow-sm" style="width: 200px;">
+          <p class="mb-1">“Excited to see meals served.”</p>
+          <small class="text-muted">Emily R.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CALL-TO-ACTION REMINDER ===== -->
+<section class="py-5 text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4">Your donation today creates smiles, meals, and trees tomorrow 💙</h2>
+    <a href="/donate" class="btn btn-danger btn-lg rounded-pill shadow px-5">Donate Now</a>
+  </div>
+</section>
+
+{% endblock %}

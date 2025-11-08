@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load humanize %} {# Needed for intcomma filter #}
+
+{% block content %}
+
+<!-- ===== HERO / PAGE BANNER ===== -->
+<section class="position-relative d-flex align-items-center text-center text-dark"
+  style="height: 60vh; background: url('https://source.unsplash.com/1600x600/?meals,trees,community') center/cover no-repeat;">
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(255,255,255,0.55);"></div>
+  <div class="container position-relative">
+    <h1 class="display-4 fw-bold text-primary">See the Change You’re Creating 🌱🍲</h1>
+    <p class="lead mb-4 text-muted">Every donation contributes to measurable impact.</p>
+  </div>
+</section>
+
+<!-- ===== IMPACT COUNTERS / KEY STATS ===== -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row text-center g-4">
+      {% for impact in impact_counters %}
+      <div class="col-md-3">
+        <i class="bi {{ impact.icon_class }} fs-1 text-success mb-2"></i>
+        <h3 class="fw-bold text-primary">{{ impact.value|intcomma }}</h3>
+        <p class="text-muted">{{ impact.name }}</p>
+      </div>
+      {% empty %}
+      <p class="text-muted">No impact stats available at the moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS PROGRESS OVERVIEW ===== -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="fw-bold text-primary text-center mb-5">Ongoing Projects</h2>
+    <div class="row g-4">
+      {% for project in projects %}
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100 bg-white hover-shadow">
+          <div class="card-body">
+            <h5 class="fw-bold mb-2">
+              {{ project.title }}
+              {% if project.collected_amount >= project.goal_amount %}
+              <span class="badge bg-success">Completed</span>
+              {% elif project.collected_amount > 0 %}
+              <span class="badge bg-info text-dark">In Progress</span>
+              {% else %}
+              <span class="badge bg-warning text-dark">Needs More Funds</span>
+              {% endif %}
+            </h5>
+            <p class="text-muted small">{{ project.short_description }}</p>
+            <div class="progress mb-2" style="height: 10px;">
+              <div class="progress-bar bg-success" style="width: {{ project.progress_percent|floatformat:0 }}%;"></div>
+            </div>
+            <p class="mb-1 text-muted">₹{{ project.collected_amount|intcomma }} of ₹{{ project.goal_amount|intcomma }}
+              collected</p>
+            <a href="{% url 'projects' %}" class="btn btn-primary rounded-pill w-100">See Details</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center text-muted">No ongoing projects right now.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ===== MILESTONES / ACHIEVEMENTS ===== -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="fw-bold text-primary text-center mb-5">Milestones & Achievements</h2>
+    <div class="row g-4">
+      {% for milestone in milestones %}
+      <div class="col-md-4 col-sm-6">
+        <div class="card border-0 shadow-sm bg-white h-100 text-center rounded-4">
+          {% if milestone.image_url %}
+          <img src="{{ milestone.image_url }}" class="card-img-top rounded-top-4" alt="{{ milestone.title }}">
+          {% else %}
+          <div class="bg-secondary text-white py-5 rounded-top-4">
+            <i class="bi bi-trophy fs-1"></i>
+          </div>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="fw-bold">{{ milestone.title }}</h5>
+            <p class="text-muted small">{{ milestone.description }}</p>
+            <p class="text-muted small"><em>{{ milestone.date_achieved|date:"F j, Y" }}</em></p>
+            {% if milestone.project %}
+            <p class="text-info small">Project: {{ milestone.project.title }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center text-muted">No milestones available yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== FINAL CTA ===== -->
+<section class="py-5 text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4">Keep the Impact Growing 💙</h2>
+    <a href="{% url 'donate' %}" class="btn btn-primary btn-lg rounded-pill shadow px-5">Donate Now</a>
+  </div>
+</section>
+
+{% endblock %}
