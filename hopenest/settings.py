@@ -34,8 +34,8 @@ ALLOWED_HOSTS = [
     "54.254.162.138",
     "74.220.52.*",
     "74.220.60.*",
-    "hopenest-1.onrender.com",
-    "www.hopenest-1.onrender.com",
+    "hopenest.onrender.com",
+    "www.hopenest.onrender.com",
 ]
 
 
@@ -144,7 +144,7 @@ STATICFILES_DIRS = [
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://hopenest-1.onrender.com',
+    'https://hopenest.onrender.com',
 ]
 
 
